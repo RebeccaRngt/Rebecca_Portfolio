@@ -1,4 +1,6 @@
 import Title from "./Title"
+import { motion } from "framer-motion";
+import { fadeInUp, staggerContainer } from "../utils/motion";
 
 import Tinter from '../assets/projects/tinter.png';
 import PeakINT from '../assets/projects/PeakINT.png';
@@ -8,8 +10,8 @@ import { Github, Video } from "lucide-react";
 const projects = [
     {
         id: 1,
-        title: 'TINTer',
-        description: 'Il faut que je mette une description',
+        title: 'T’INTer',
+        description: 'T’INTer est une plateforme web conçue pour renforcer les liens entre les étudiants au sein de leur campus en facilitant les connexions autour de leurs besoins académiques et de leurs centres d’intérêt personnels.',
         technologies: ['Django', 'Docker'],
         demoLink: '#',
         repoLink: '#',
@@ -18,7 +20,7 @@ const projects = [
     {
         id: 1,
         title: 'PeakINT',
-        description: 'Il faut que je mette une description',
+        description: 'PeakINT est une plateforme web dédiée à la gestion complète d’une salle de sport. Elle permet de planifier les cours, gérer les réservations et centraliser les informations des membres, le tout via une interface simple et intuitive.',
         technologies: ['Django'],
         demoLink: '#',
         repoLink: '#',
@@ -31,9 +33,16 @@ const Projects = () => {
     return (
         <div id="Projects" className="mt-10">
             <Title title="Mes Projets"/>
-            <div className="grid md:grid-cols-3 gap-4">
+            <motion.div className="grid md:grid-cols-3 gap-4"
+                variants={staggerContainer(0.12, 0)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+            >
                 {projects.map((project) => (
-                    <div key={project.id} className="bg-base-300 p-5 h-fit rounded-xl shadow-lg">
+                    <motion.div key={project.id} className="bg-base-300 p-5 h-fit rounded-xl shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+                        variants={fadeInUp}
+                    >
                         <img 
                             src={project.image}
                             alt={project.title}
@@ -47,7 +56,7 @@ const Projects = () => {
                         </div>
                         <div className="flex flex-wrap gap-2 my-3">
                             {project.technologies.map((tech) => (
-                                <span className="badge badge-accent badge-sm">
+                                <span key={tech} className="badge badge-accent badge-sm">
                                     {tech}
                                 </span>
                             ))}
@@ -61,9 +70,9 @@ const Projects = () => {
                                 <Github className="w-4"/>
                             </a>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     )
 }

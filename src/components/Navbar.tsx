@@ -1,8 +1,14 @@
 import { Aperture } from "lucide-react";
+import { motion } from "framer-motion";
+import { fadeInDown } from "../utils/motion";
 
 const Navbar = () => {
     return (
-        <div className="flex justify-center md:justify-between items-center p-4">
+        <motion.div className="flex justify-center md:justify-between items-center p-4"
+            variants={fadeInDown}
+            initial="hidden"
+            animate="visible"
+        >
             <a href="#"
             className="flex items-center font-bold text-3xl md:text-xl"
             >
@@ -41,7 +47,7 @@ const Navbar = () => {
                     </a>
                 </li>
             </ul>
-        </div>
+        </motion.div>
     )
 }
 

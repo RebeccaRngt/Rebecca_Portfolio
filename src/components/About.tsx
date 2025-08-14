@@ -1,6 +1,8 @@
 import Title from "./Title"
 import cv from '../assets/cv.png'
 import { CalendarSync, LetterText, Paintbrush } from "lucide-react";
+import { motion } from "framer-motion";
+import { fadeInLeft, fadeInRight, staggerContainer } from "../utils/motion";
 
 const aboutSections = [
     {
@@ -26,18 +28,29 @@ const aboutSections = [
 const About = () => {
     return (
         <div className="bg-base-300 p-10 mb-10 md:mb-32" id="About">
-            <Title title="À propos"/>
+            <Title title="À propos de moi"/>
             <div className="md:h-screen flex justify-center items-center">
-                <div className="hidden md:block">
+                <motion.div
+                    className="hidden md:block"
+                    variants={fadeInLeft}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                >
                     <img src={cv} alt="" className="w-96 object-cover round-xl"
                     />
-                </div>
-                    
-
-                <div className="md:ml-4 space-y-4">
+                </motion.div>
+                <motion.div
+                    className="md:ml-4 space-y-4"
+                    variants={staggerContainer(0.12, 0)}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {aboutSections.map((section) => (
-                        <div key={section.id}
-                        className="flex flex-col md:flex-row items-center bg-base-100 p-5 rounded-xl md:w-96 shadow-xl"
+                        <motion.div key={section.id}
+                            className="flex flex-col md:flex-row items-center bg-base-100 p-5 rounded-xl md:w-96 shadow-xl transition-transform duration-300 hover:scale-[1.02]"
+                            variants={fadeInRight}
                         >
                             <div className="md-2 md:mb-0">
                                 {section.icon}
@@ -50,13 +63,10 @@ const About = () => {
                                     {section.description}
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                    ))
-
-                    }
-
-                </div>
+                    ))}
+                </motion.div>
             </div>
         </div>
     )
